@@ -23,5 +23,21 @@ namespace Rocky.Controllers
             IEnumerable<ApplicationType> applicationTypes = _db.ApplicationTypes;
             return View(applicationTypes);
         }
+
+        // GET - CREATE
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST - CREATE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ApplicationType applicationType)
+        {
+            _db.ApplicationTypes.Add(applicationType);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
