@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Rocky.Data;
+using Rocky.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +11,17 @@ namespace Rocky.Controllers
 {
     public class ApplicationTypeController : Controller
     {
+        private readonly AppDbContext _db;
+
+        public ApplicationTypeController(AppDbContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<ApplicationType> applicationTypes = _db.ApplicationTypes;
+            return View(applicationTypes);
         }
     }
 }
