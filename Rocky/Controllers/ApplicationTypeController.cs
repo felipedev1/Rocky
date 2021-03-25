@@ -35,9 +35,13 @@ namespace Rocky.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ApplicationType applicationType)
         {
-            _db.ApplicationTypes.Add(applicationType);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.ApplicationTypes.Add(applicationType);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(applicationType);
         }
     }
 }
